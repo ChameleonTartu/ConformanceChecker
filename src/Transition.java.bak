@@ -15,9 +15,6 @@ public class Transition
 	
 	private Place outputPlace;
 	
-	
-	private PetriNet petriNet;
-	
 	public List<Place> getInputPlaces( )
 	{
 		return null;
@@ -43,20 +40,7 @@ public class Transition
 		
 	}
 	
-	public List<Place> getOutputPlaces( )
-	{
-		
-	}
-	
-	
-
-	public String getTransitionName( )
-	{
-		return null;
-	}
-	
-	
-	public void fire( )
+	public void getOutputPlaces( )
 	{
 		
 	}

@@ -16,12 +16,6 @@ public class PetriNet
 		return null;
 	}
 	
-	
-	private Place place;
-	
-	
-	private Transition transition;
-	
 	public List<Transition> getTransitions( )
 	{
 		return null;
@@ -108,13 +102,6 @@ public class PetriNet
 	}
 	
 	public void updateRemaining( int remaining )
-	{
-		
-	}
-	
-	
-
-	public void replayTrace( )
 	{
 		
 	}

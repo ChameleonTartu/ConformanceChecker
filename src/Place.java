@@ -1,7 +1,3 @@
-/**
- * @(#) Place.java
- */
-
 public class Place
 {
 	private String name;
@@ -11,6 +7,34 @@ public class Place
 	private Transition inputTransition;
 	
 	private Transition outputTtrasition;
+	
+	
+
+	private PetriNet petriNet;
+	
+	
+	public int getAmountOfTokens( )
+	{
+		return 0;
+	}
+	
+	
+	public void consumeToekn( )
+	{
+		
+	}
+	
+	
+	public void addToken( )
+	{
+		
+	}
+	
+	
+	public void produceToken( )
+	{
+		
+	}
 	
 	
 }

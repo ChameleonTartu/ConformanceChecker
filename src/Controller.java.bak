@@ -69,35 +69,4 @@ public class Controller
 	}
 
 	
-
-	private int calculateFitness( )
-	{
-		return 0;
-	}
-	
-	
-	private int calculateBehavioralAppropriateness( List<Trace> traces, int transitionLength )
-	{
-		return 0;
-	}
-	
-	
-	private int calculateStructuralAppropriateness( int transitionLength, int placesLength )
-	{
-		return 0;
-	}
-	
-	
-	public void execute( String filePathLog, String filePathPetriNet )
-	{
-		
-	}
-	
-	
-	public int computeStructuralAppropriateness( )
-	{
-		return 0;
-	}
-	
-	
 }

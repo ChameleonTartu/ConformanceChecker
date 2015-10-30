@@ -1,3 +1,7 @@
+/**
+ * @(#) Event.java
+ */
+
 public class Event
 {
 	private String name;
@@ -5,13 +9,6 @@ public class Event
 	private int timestamp;
 	
 	private Trace trace;
-	
-	
-
-	public String getEventName( )
-	{
-		return null;
-	}
 	
 	
 }

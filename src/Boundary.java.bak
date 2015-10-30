@@ -1,3 +1,7 @@
+/**
+ * @(#) Boundary.java
+ */
+
 public class Boundary
 {
 	private Controller controller;

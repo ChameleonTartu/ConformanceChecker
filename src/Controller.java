@@ -67,11 +67,6 @@ public class Controller
 	{
 		return 0;
 	}
-	
-	public void replayTrace( String trace )
-	{
-		
-	}
-	
+
 	
 }

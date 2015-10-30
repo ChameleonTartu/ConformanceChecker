@@ -9,94 +9,75 @@ import java.util.List;
  */
 public class Controller
 {
-	private Boundary boundary;
+	//private Boundary boundary;
 	
 	private EntityManager entityManager;
+	private Log eventLog;
+	private PetriNet petriNet;
 	
-	public List<Trace> getTraces( )
+	public Controller ()
 	{
-		return null;
+		entityManager = new EntityManager();
 	}
 	
-	public int computeStructuralAppropriateness( int transitionLength, int placesLength )
+	public void execute( String filePathLog, String filePathPetriNet)
 	{
-		return 0;
+		eventLog = entityManager.getLog(filePathLog);
+		petriNet = entityManager.getPetriNet(filePathPetriNet);
+		List<Trace> traces = eventLog.getTraces();
+		petriNet.replayTrace(traces);
 	}
 	
-	public List<Place> getPlaces( )
+	private double calculateFitness( List<Trace> traces )
 	{
-		return null;
+		double missing = 0, consumed = 0, remaining = 0, produced = 0;
+		for( int i = 0; i < traces.size(); ++i)
+		{
+			missing += ( traces.get(i).getNumber() * traces.get(i).getMissing() );
+			consumed += ( traces.get(i).getNumber() * traces.get(i).getConsumed() );
+			remaining += ( traces.get(i).getNumber() * traces.get(i).getRemaining() );
+			produced += ( traces.get(i).getNumber() * traces.get(i).getProduced() );
+		}
+		return (1.0 - (missing/consumed + remaining/produced)/2.0);
 	}
 	
-	public int computeFitness( Trace traces )
+	public double computeFitness()
 	{
-		return 0;
+		List<Trace> traces = eventLog.getTraces();
+		return ( this.calculateFitness(traces) );
 	}
 	
-	public void replayTrace( String trace )
+	private double calculateBehavioralAppropriateness( List<Trace> traces, int transitionLength )
 	{
-		
+		List<Transition> transitions = petriNet.getTransitions();
+		double sumNumberMultyiplyByDisabledTransitions = 0, number = 0, numberTransitions = transitions.size();
+		for( int i = 0; i < traces.size(); ++i)
+		{
+			sumNumberMultyiplyByDisabledTransitions += (traces.get(i).getNumber() * (numberTransitions - traces.get(i).getEnabled() ) );
+			number += traces.get(i).getNumber();
+		}
+		return sumNumberMultyiplyByDisabledTransitions/((numberTransitions-1) * number) ;
 	}
 	
-	public List<Transition> getTransitions( )
+	public double computeBehavioralAppropriateness()
 	{
-		return null;
+		List<Trace> traces = eventLog.getTraces();
+		List<Transition> transitions = petriNet.getTransitions();
+		return (this.calculateBehavioralAppropriateness(traces, transitions.size() ));
 	}
 	
-	public PetriNet getPetriNet( String filePathPetriNet )
+	private double calculateStructuralAppropriateness( int transitionLength, int placesLength )
 	{
-		return null;
+		double label = (double)transitionLength + 2.0;
+		double node = (double)transitionLength + (double)placesLength;
+		return label/node;
 	}
 	
-	public Log getLog( String filePathLog )
+	public double computeStructuralAppropriateness()
 	{
-		return null;
-	}
-	
-	public int computeFitness( List<Trace> inputTraces )
-	{
-		return 0;
-	}
-	
-	public int computeBehavioralAppropriateness( List<Trace> inputTraces, int inputTransitionLength )
-	{
-		return 0;
-	}
-	
-	public int computeBehavioralAppropriateness( Trace traces, int transitionLength )
-	{
-		return 0;
-	}
-
-	
-
-	private int calculateFitness( )
-	{
-		return 0;
-	}
-	
-	
-	private int calculateBehavioralAppropriateness( List<Trace> traces, int transitionLength )
-	{
-		return 0;
-	}
-	
-	
-	private int calculateStructuralAppropriateness( int transitionLength, int placesLength )
-	{
-		return 0;
-	}
-	
-	
-	public void execute( String filePathLog, String filePathPetriNet )
-	{
-		
-	}
-	
-	
-	public int computeStructuralAppropriateness( )
-	{
-		return 0;
+		List<Transition> transitions = petriNet.getTransitions();
+		List<Trace> traces = eventLog.getTraces();
+		return (this.calculateStructuralAppropriateness( transitions.size(), traces.size() ));
 	}
 	
 	

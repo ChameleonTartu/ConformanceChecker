@@ -1,26 +1,13 @@
 public class Boundary
 {
-	private Controller controller;
+	private static Controller controller;
 	
-	public void execute( String filePathLog, String filePathPetriNet )
+	public static void Main( String [] args )
 	{
-		
+		controller = new Controller();
+		controller.execute(args[0], args[1]);
+		System.out.println( controller.computeFitness() );
+		System.out.println( controller.computeBehavioralAppropriateness());
+		System.out.println( controller.computeStructuralAppropriateness());
 	}
-	
-	public int computeFitness( )
-	{
-		return 0;
-	}
-	
-	public int computeBehavioralAppropriateness( )
-	{
-		return 0;
-	}
-	
-	public int computeStructuralApproprateness( )
-	{
-		return 0;
-	}
-	
-	
 }

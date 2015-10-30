@@ -65,9 +65,10 @@ public class Trace
 	}
 	
 	
-	public void updateEnabledTransitions( List<Transition> enabledTransitions )
+	public void updateEnabledTransitions( int enabledTransitionsLength )
 	{
-		
+		// Not sure about this!
+		enabled += enabledTransitionsLength;
 	}
 	
 	

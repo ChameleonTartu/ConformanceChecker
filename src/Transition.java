@@ -2,6 +2,7 @@
  * @(#) Transition.java
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,56 +11,49 @@ import java.util.List;
 public class Transition
 {
 	private String name;
+	private List<Place> inputPlaces;
+	private List<Place> outputPlaces;
 	
-	private Place inputPlace;
+	public Transition( List<Place> inputPlaces, List<Place> outputPlaces, String name )
+	{
+		this.inputPlaces = inputPlaces;
+		this.outputPlaces = outputPlaces;
+		this.name = name;
+	}
 	
-	private Place outputPlace;
-	
-	
-	private PetriNet petriNet;
+	public List<Place> getPlacesWithoutTokens()
+	{
+		List<Place> placesWithoutTokens = new ArrayList<Place>();
+		for( int i = 0; i < inputPlaces.size(); ++i)
+		{
+			if( inputPlaces.get(i).getAmountOfTokens() == 0 )
+				placesWithoutTokens.add(inputPlaces.get(i));
+		}
+		return placesWithoutTokens;
+	}
 	
 	public List<Place> getInputPlaces( )
 	{
-		return null;
-	}
-	
-	public int getAmountOfTokens( )
-	{
-		return 0;
-	}
-	
-	public void addPlace( Place place )
-	{
-		
-	}
-	
-	public void consumeToken( )
-	{
-		
-	}
-	
-	public void produceToken( )
-	{
-		
+		return inputPlaces;
 	}
 	
 	public List<Place> getOutputPlaces( )
 	{
-		return null;
+		return outputPlaces;
 	}
-	
-	
 
 	public String getTransitionName( )
 	{
-		return null;
+		return this.name;
 	}
 	
 	
 	public void fire( )
 	{
-		
+		for( int i = 0; i < inputPlaces.size(); ++i )
+			inputPlaces.get(i).consumeToken();
+		for( int i = 0; i < outputPlaces.size(); ++i )
+			outputPlaces.get(i).produceToken();
 	}
-	
-	
+
 }

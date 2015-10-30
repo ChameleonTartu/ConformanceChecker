@@ -1,39 +1,33 @@
 public class Place
-{
-	private String name;
-	
+{	
 	private int currentAmountOfTokens;
 	
-	private Transition inputTransition;
-	
-	private Transition outputTtrasition;
-	
-	
-
-	private PetriNet petriNet;
-	
+	public Place(int currentAmountOfTokens)
+	{
+		this.currentAmountOfTokens = currentAmountOfTokens;
+	}
 	
 	public int getAmountOfTokens( )
 	{
-		return 0;
+		return this.currentAmountOfTokens;
 	}
 	
 	
-	public void consumeToekn( )
+	public void consumeToken( )
 	{
-		
+		--this.currentAmountOfTokens;
 	}
 	
 	
 	public void addToken( )
 	{
-		
+		++this.currentAmountOfTokens;
 	}
 	
 	
 	public void produceToken( )
 	{
-		
+		++this.currentAmountOfTokens;
 	}
 	
 	

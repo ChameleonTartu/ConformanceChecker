@@ -45,7 +45,7 @@ public class Transition
 	
 	public List<Place> getOutputPlaces( )
 	{
-		
+		return null;
 	}
 	
 	

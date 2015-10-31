@@ -72,13 +72,13 @@ public class Trace
 	
 	public void updateConsumed( List<Place> inputPlaces )
 	{
-		this.consumed = inputPlaces.size();
+		this.consumed += inputPlaces.size();
 	}
 	
 	
 	public void updateProduced( List<Place> outputPlaces )
 	{
-		this.produced = outputPlaces.size();
+		this.produced += outputPlaces.size();
 	}
 	
 	

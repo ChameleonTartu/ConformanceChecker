@@ -27,38 +27,6 @@ public class PetriNet
 		transitions.add(trans);
 	}
 	
-	public void AddArcFromTransition(String transName, String placeName) {
-		for (Transition trans : transitions) {
-			if (trans.getName() == transName) {
-				for (Place place : this.places) {
-					if (placeName == place.name) {
-						trans.AddOutPlace(place);		
-					}
-				}
-			}
-		}
-		
-	}
-	
-	public void AddArcToTransition(String transName, String placeName) {		
-		for (Transition trans : transitions) {
-			if (trans.getName() == transName) {
-				for (Place place : places) {
-					if (placeName == place.name) {
-						trans.AddInPlace(place);	
-					}
-				}
-			}
-		}
-	}
-	
-	public void findInitPlace(){
-		places.get(places.size()-1).setAmountOfToken(1);
-		for (Place pl : places) {
-			System.out.println(pl.name + " " + pl.getAmountOfTokens());
-		}
-	}
-	
 	public void replayTrace( List<Trace> traces )
 	{
 		for( int index = 0; index < traces.size(); ++index )
@@ -66,28 +34,35 @@ public class PetriNet
 			List<Event> events = traces.get(index).getEvents();
 			List<Transition> enabledTransition = new ArrayList<Transition>();;
 			
-			for( int event = 0; event < events.size(); ++event )
+			
+			for( int transition = 0; transition < transitions.size(); ++transition )
 			{
-				String eventName = events.get(event).getEventName();
-				for( int transition = 0; transition < transitions.size(); ++transition )
+				List<Place> placeWithoutTokens = transitions.get(transition).getPlacesWithoutTokens();
+				if( placeWithoutTokens.size() == 0 )
+					enabledTransition.add(transitions.get(transition));
+				
+				traces.get(index).updateMissing(placeWithoutTokens);
+				
+				String transitionName = transitions.get(transition).getTransitionName();
+				
+				for( int event = 0; event < events.size(); ++event )
 				{
-					List<Place> placeWithoutTokens = transitions.get(transition).getPlacesWithoutTokens();
-					if( placeWithoutTokens.size() == 0 )
-						enabledTransition.add(transitions.get(transition));
+					String eventName = events.get(event).getEventName();
 					
-					// I have doubts about this line!
-					traces.get(index).updateMissing(placeWithoutTokens);
-					
-					String transitionName = transitions.get(transition).getTransitionName();
-					if( transitionName == eventName )
+					if( transitionName.equals(eventName) )
 					{
+						
+						
+						System.out.println( eventName + " " + eventName.length() + " " + transitionName  + " " + transitionName.length() );
 						if( placeWithoutTokens.size() > 0 )
 						{
+							//
 							List<Place> places = transitions.get(transition).getInputPlaces();
 							for( int indexPlacesWithoutTokens = 0; indexPlacesWithoutTokens < placeWithoutTokens.size(); ++indexPlacesWithoutTokens )
 							{
 								for( int indexInputPlaces = 0; indexInputPlaces < places.size(); ++indexInputPlaces )
 								{
+									//
 									if( placeWithoutTokens.get(indexPlacesWithoutTokens) == places.get(indexInputPlaces) )
 										placeWithoutTokens.get(indexPlacesWithoutTokens).addToken();
 								}
@@ -104,6 +79,8 @@ public class PetriNet
 					}
 				}
 			}
+			
+			//
 			int remaining = 0;
 			for( int place = 0; place < places.size(); ++place)
 			{

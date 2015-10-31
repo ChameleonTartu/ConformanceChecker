@@ -5,6 +5,12 @@ public class Place
 	
 	public String name;
 	
+	public Place(String name, int currentAmountOfTokens)
+	{
+		this.currentAmountOfTokens = currentAmountOfTokens;
+		this.name = name;
+	}
+	
 	public Place(String name)
 	{
 		this.currentAmountOfTokens = 0;

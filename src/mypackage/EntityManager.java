@@ -26,6 +26,7 @@ import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetFactor
 import org.processmining.models.semantics.petrinet.Marking;
 import org.processmining.plugins.pnml.Pnml;
 
+import com.google.common.collect.Iterators;
 import com.sun.javafx.collections.MappingChange.Map;
 
 public class EntityManager
@@ -89,47 +90,84 @@ public class EntityManager
 			Marking marking = new Marking();
 			pnml.convertToNet(net,marking ,new GraphLayoutConnection(net));
 			
-			//init places
 			Collection<Place> places = net.getPlaces();
-			List<mypackage.Place> placesList = new ArrayList<mypackage.Place>(); 
-			Iterator<Place> all = net.getPlaces().iterator();
-			while (all.hasNext())
-			{
-				Place p = all.next();
-				placesList.add(new mypackage.Place(p.getLabel()));
-			}
-	
-			//init transitions
 			Collection<Transition> transitions = net.getTransitions();
-			Iterator<Transition> transtion = net.getTransitions().iterator();
 			
-			//init PetriNet only with places
-			PetriNet petriNet = new PetriNet(placesList);
 			
-			while (transtion.hasNext())
+			List<mypackage.Transition> originalTransitions = new ArrayList<mypackage.Transition>();
+			List<mypackage.Place> originalPlaces = new ArrayList<mypackage.Place>();
+			
+			for( int place = 0; place < places.size(); ++place )
 			{
-				Transition t = transtion.next();
-				petriNet.AddTransition(new mypackage.Transition(t.getLabel()));
+				Place aPlace = Iterators.get( places.iterator(), place);
+				Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesInputPlaces = net.getInEdges(aPlace);
+				if( edgesInputPlaces.size() == 0 )
+				{
+					originalPlaces.add(new mypackage.Place(aPlace.getLabel(),1));
+				}
+				else
+				{
+					originalPlaces.add(new mypackage.Place(aPlace.getLabel(),0));
+				}
+			}
+			
+			for( int transition = 0; transition < transitions.size(); ++transition )
+			{
+				List<mypackage.Place> inputPlaces = new ArrayList<mypackage.Place>();
+				List<mypackage.Place> outputPlaces = new ArrayList<mypackage.Place>();
+				Transition aTransition = Iterators.get( transitions.iterator(), transition );
 				
-				//to get outgoing edges from a transition
-				Iterator<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> outedges = net.getOutEdges(t).iterator();
-				while (outedges.hasNext())
+				for( int place = 0; place < places.size(); ++place )
 				{
-					PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode> outedge = outedges.next();
-					petriNet.AddArcFromTransition(t.getLabel(), outedge.getTarget().getLabel());
+					Place aPlace = Iterators.get( places.iterator(), place);
+					
+					Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesOutputPlaces = net.getOutEdges(aPlace);
+					Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesInputPlaces = net.getInEdges(aPlace);
+					Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesOutputTransition = net.getOutEdges(aTransition);
+					Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesInputTransition = net.getInEdges(aTransition);
+					
+					
+					for( int aTransitionIndex = 0; aTransitionIndex < edgesOutputTransition.size(); ++aTransitionIndex )
+					{
+						for( int aPlaceIndex = 0; aPlaceIndex < edgesInputPlaces.size(); ++aPlaceIndex )
+						{
+							if( Iterators.get( edgesOutputTransition.iterator(), aTransitionIndex) == Iterators.get( edgesInputPlaces.iterator(), aPlaceIndex) )
+							{
+								outputPlaces.add(new mypackage.Place(aPlace.getLabel()));
+							}
+						}
+					}
+					
+					for( int aTransitionIndex = 0; aTransitionIndex < edgesInputTransition.size(); ++aTransitionIndex )
+					{
+						for( int aPlaceIndex = 0; aPlaceIndex < edgesOutputPlaces.size(); ++aPlaceIndex )
+						{
+							if( Iterators.get( edgesInputTransition.iterator(), aTransitionIndex) == Iterators.get( edgesOutputPlaces.iterator(), aPlaceIndex) )
+							{
+								inputPlaces.add(new mypackage.Place(aPlace.getLabel()));
+							}
+						}
+						if( edgesOutputPlaces.size() == 0 )
+						{
+							inputPlaces.add(new mypackage.Place(aPlace.getLabel(),1));
+						}
+					}
 				}
-				//to get ingoing edges to a transition
-				Iterator<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> inedges = net.getInEdges(t).iterator();
-				while (inedges.hasNext())
-				{
-					PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode> inedge = inedges.next();
-					petriNet.AddArcToTransition(t.getLabel(), inedge.getSource().getLabel());
-				}
+				originalTransitions.add( new mypackage.Transition( inputPlaces, outputPlaces, aTransition.getLabel() ));
 				
 			}
 			
-			petriNet.findInitPlace();
-			System.out.println(" aSDxa " + petriNet.getTransitions().size());
+			for( int i = 0; i < originalTransitions.size(); ++i )
+			{
+				System.out.println(originalTransitions.get(i).getName());
+			}
+			
+			//System.out.println(originalPlaces.size());
+			//System.out.println(originalTransitions.size());
+			
+			PetriNet petriNet = new PetriNet(originalPlaces, originalTransitions);
+			//petriNet.findInitPlace();
+			//System.out.println(" aSDxa " + petriNet.getTransitions().size());
 			return petriNet;
 
 			} catch (Exception e) {

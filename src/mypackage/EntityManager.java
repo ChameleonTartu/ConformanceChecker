@@ -31,7 +31,6 @@ import com.sun.javafx.collections.MappingChange.Map;
 
 public class EntityManager
 {
-	private Controller controller;
 	
 	public Log getLog( String filePathLog )
 	{
@@ -56,7 +55,7 @@ public class EntityManager
 			List<Trace> tracesList = new ArrayList<Trace>();
 			for(String key :traces.keySet()){
 				Integer value = traces.get(key);
-				List<Event> events = new ArrayList();
+				List<Event> events = new ArrayList<Event>();
 				for (int i=0; i < key.length(); i++){
 					Event event = new Event(String.valueOf(key.charAt(i)));
 					events.add(event);
@@ -73,12 +72,7 @@ public class EntityManager
 		
 		return null;
 	}
-	/*
-	public static void main(String[] args) {
-		EntityManager em = new EntityManager();
-		em.getPetriNet("C:\\Users\\andre_000\\Documents\\GitHub\\ConformanceChecker\\src\\test.pnml");
-	}
-	*/
+
 	public PetriNet getPetriNet( String filePathPetriNet )
 	{
 		PnmlImportUtils ut = new PnmlImportUtils();
@@ -133,7 +127,13 @@ public class EntityManager
 						{
 							if( Iterators.get( edgesOutputTransition.iterator(), aTransitionIndex) == Iterators.get( edgesInputPlaces.iterator(), aPlaceIndex) )
 							{
-								outputPlaces.add(new mypackage.Place(aPlace.getLabel()));
+								for( int existPlace = 0; existPlace < originalPlaces.size(); ++existPlace )
+								{
+									mypackage.Place originalPlace = Iterators.get( originalPlaces.iterator(), existPlace);
+									
+									if( aPlace.getLabel().equals( originalPlace.getName() ) )
+										outputPlaces.add(originalPlace);
+								}
 							}
 						}
 					}
@@ -144,12 +144,14 @@ public class EntityManager
 						{
 							if( Iterators.get( edgesInputTransition.iterator(), aTransitionIndex) == Iterators.get( edgesOutputPlaces.iterator(), aPlaceIndex) )
 							{
-								inputPlaces.add(new mypackage.Place(aPlace.getLabel()));
+								for( int existPlace = 0; existPlace < originalPlaces.size(); ++existPlace )
+								{
+									mypackage.Place originalPlace = Iterators.get( originalPlaces.iterator(), existPlace);
+									
+									if( aPlace.getLabel().equals( originalPlace.getName() ) )
+										inputPlaces.add(originalPlace);
+								}
 							}
-						}
-						if( edgesOutputPlaces.size() == 0 )
-						{
-							inputPlaces.add(new mypackage.Place(aPlace.getLabel(),1));
 						}
 					}
 				}

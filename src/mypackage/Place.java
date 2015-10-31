@@ -17,6 +17,11 @@ public class Place
 		this.name = name;
 	}
 	
+	public String getName()
+	{
+		return this.name;
+	}
+	
 	public int getAmountOfTokens( )
 	{
 		return this.currentAmountOfTokens;

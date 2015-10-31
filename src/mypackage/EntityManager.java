@@ -127,6 +127,8 @@ public class EntityManager
 				}
 				
 			}
+			
+			return petriNet;
 
 			} catch (Exception e) {
 			e.printStackTrace();

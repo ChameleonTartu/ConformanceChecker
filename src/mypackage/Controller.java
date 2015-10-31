@@ -39,6 +39,12 @@ public class Controller
 			remaining += ( traces.get(i).getNumber() * traces.get(i).getRemaining() );
 			produced += ( traces.get(i).getNumber() * traces.get(i).getProduced() );
 		}
+		System.out.println(missing);
+		System.out.println(consumed);
+		System.out.println(remaining);
+		System.out.println(produced);
+		System.out.println();
+		
 		return (1.0 - (missing/consumed + remaining/produced)/2.0);
 	}
 	
@@ -77,8 +83,8 @@ public class Controller
 	public double computeStructuralAppropriateness()
 	{
 		List<Transition> transitions = petriNet.getTransitions();
-		List<Trace> traces = eventLog.getTraces();
-		return (this.calculateStructuralAppropriateness( transitions.size(), traces.size() ));
+		List<Place> places = petriNet.getPlaces();
+		return (this.calculateStructuralAppropriateness( transitions.size(), places.size() ));
 	}
 	
 	

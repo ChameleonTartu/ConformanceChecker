@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PetriNet
 {	
-	private List<Place> places;
+	public List<Place> places;
 	private List<Transition> transitions;
 	
 	public PetriNet( List<Place> places, List<Transition> transitions )
@@ -28,32 +28,34 @@ public class PetriNet
 	}
 	
 	public void AddArcFromTransition(String transName, String placeName) {
-		//list for finding initial node
-		List<Place> pls = new ArrayList<Place>(this.places);
 		for (Transition trans : transitions) {
 			if (trans.getName() == transName) {
 				for (Place place : this.places) {
 					if (placeName == place.name) {
 						trans.AddOutPlace(place);		
-						pls.remove(place);
 					}
 				}
-				
 			}
 		}
 		
-		pls.get(0).setAmountOfToken(1);
 	}
 	
-	public void AddArcToTransition(String transName, String placeName) {
+	public void AddArcToTransition(String transName, String placeName) {		
 		for (Transition trans : transitions) {
 			if (trans.getName() == transName) {
 				for (Place place : places) {
 					if (placeName == place.name) {
-						trans.AddOutPlace(place);		
+						trans.AddInPlace(place);	
 					}
 				}
 			}
+		}
+	}
+	
+	public void findInitPlace(){
+		places.get(places.size()-1).setAmountOfToken(1);
+		for (Place pl : places) {
+			System.out.println(pl.name + " " + pl.getAmountOfTokens());
 		}
 	}
 	

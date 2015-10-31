@@ -3,10 +3,10 @@ public class Boundary
 {
 	private static Controller controller;
 	
-	public static void Main( String [] args )
+	public static void main( String [] args )
 	{
 		controller = new Controller();
-		controller.execute(args[0], args[1]);
+		controller.execute("C:\\Users\\andre_000\\Documents\\GitHub\\ConformanceChecker\\src\\test.xes", "C:\\Users\\andre_000\\Documents\\GitHub\\ConformanceChecker\\src\\test.pnml");
 		System.out.println( controller.computeFitness() );
 		System.out.println( controller.computeBehavioralAppropriateness());
 		System.out.println( controller.computeStructuralAppropriateness());

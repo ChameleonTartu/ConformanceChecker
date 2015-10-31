@@ -123,11 +123,13 @@ public class EntityManager
 				while (inedges.hasNext())
 				{
 					PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode> inedge = inedges.next();
-					petriNet.AddArcToTransition(inedge.getSource().getLabel(), t.getLabel());
+					petriNet.AddArcToTransition(t.getLabel(), inedge.getSource().getLabel());
 				}
 				
 			}
 			
+			petriNet.findInitPlace();
+			System.out.println(" aSDxa " + petriNet.getTransitions().size());
 			return petriNet;
 
 			} catch (Exception e) {

@@ -11,7 +11,6 @@ import java.util.List;
 public class Controller
 {
 	//private Boundary boundary;
-	
 	private EntityManager entityManager;
 	private Log eventLog;
 	private PetriNet petriNet;

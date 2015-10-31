@@ -11,5 +11,4 @@ public class Event
 	{
 		return this.name;
 	}
-	
 }

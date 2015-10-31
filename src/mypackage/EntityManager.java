@@ -31,7 +31,7 @@ import com.sun.javafx.collections.MappingChange.Map;
 
 public class EntityManager
 {
-	
+	//mapping to Log class
 	public Log getLog( String filePathLog )
 	{
 		try {
@@ -72,7 +72,8 @@ public class EntityManager
 		
 		return null;
 	}
-
+	
+	//mapping to PetriNet class
 	public PetriNet getPetriNet( String filePathPetriNet )
 	{
 		PnmlImportUtils ut = new PnmlImportUtils();
@@ -170,9 +171,6 @@ public class EntityManager
 			e.printStackTrace();
 		}
 
-		
 		return null;
 	}
-	
-	
 }

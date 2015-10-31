@@ -22,13 +22,6 @@ public class Transition
 		this.name = name;
 	}
 	
-	public Transition(String name){
-		this.name = name;
-		this.inputPlaces = new ArrayList<Place>();
-		this.outputPlaces = new ArrayList<Place>();
-		
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -67,7 +60,6 @@ public class Transition
 		return this.name;
 	}
 	
-	
 	public void fire( )
 	{
 		for( int i = 0; i < inputPlaces.size(); ++i )
@@ -75,5 +67,4 @@ public class Transition
 		for( int i = 0; i < outputPlaces.size(); ++i )
 			outputPlaces.get(i).produceToken();
 	}
-
 }

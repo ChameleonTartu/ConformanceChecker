@@ -25,10 +25,6 @@ public class PetriNet
 		this.places = places;
 	}
 	
-	public void AddTransition(Transition trans) {
-		transitions.add(trans);
-	}
-	
 	public void replayTrace( List<Trace> traces )
 	{
 		

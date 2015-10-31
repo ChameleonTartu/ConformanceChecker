@@ -11,13 +11,15 @@ public class Boundary
 	
 	public static void main( String [] args )
 	{
-		controller = new Controller();
+		//simple GUI
 		JFileChooser choice = new JFileChooser();
         choice.showOpenDialog(new JFrame());
         File file1 = choice.getSelectedFile();
         choice.showOpenDialog(new JFrame());
         File file2 = choice.getSelectedFile();
-		controller.execute(file1.getAbsolutePath(), file2.getAbsolutePath());
+		//main logic is here
+    	controller = new Controller();
+        controller.execute(file1.getAbsolutePath(), file2.getAbsolutePath());
 		System.out.println( controller.computeFitness() );
 		System.out.println( controller.computeBehavioralAppropriateness());
 		System.out.println( controller.computeStructuralAppropriateness());

@@ -3,7 +3,6 @@ import java.util.List;
 
 public class Log
 {
-	
 	private List<Trace> traces;
 	
 	public Log(List<Trace> traces){
@@ -14,6 +13,4 @@ public class Log
 	{
 		return traces;
 	}
-	
-	
 }

@@ -1,3 +1,4 @@
+package mypackage;
 import java.io.File;
 
 import org.deckfour.xes.in.XMxmlGZIPParser;

@@ -1,3 +1,4 @@
+package mypackage;
 public class Event
 {
 	private String name;

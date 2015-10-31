@@ -1,3 +1,4 @@
+package mypackage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -23,6 +24,7 @@ public class PNMLTest {
 			PetrinetGraph net = PetrinetFactory.newInhibitorNet(pnml.getLabel() + " (imported from " + f.getName() + ")");
 			Marking marking = new Marking();
 			pnml.convertToNet(net,marking ,new GraphLayoutConnection(net));
+			
 			Collection<Place> places = net.getPlaces();
 			Collection<Transition> transitions = net.getTransitions();
 			Place aPlace = places.iterator().next();

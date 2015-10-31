@@ -1,3 +1,4 @@
+package mypackage;
 public class Boundary
 {
 	private static Controller controller;

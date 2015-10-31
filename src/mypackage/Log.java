@@ -1,3 +1,4 @@
+package mypackage;
 import java.util.List;
 
 public class Log

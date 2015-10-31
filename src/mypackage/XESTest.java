@@ -1,3 +1,4 @@
+package mypackage;
 import java.util.Date;
 import org.deckfour.xes.extension.std.XConceptExtension;
 import org.deckfour.xes.extension.std.XLifecycleExtension;

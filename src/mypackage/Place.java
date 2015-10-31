@@ -1,10 +1,14 @@
+package mypackage;
 public class Place
 {	
 	private int currentAmountOfTokens;
 	
-	public Place(int currentAmountOfTokens)
+	public String name;
+	
+	public Place(String name)
 	{
-		this.currentAmountOfTokens = currentAmountOfTokens;
+		this.currentAmountOfTokens = 0;
+		this.name = name;
 	}
 	
 	public int getAmountOfTokens( )
@@ -12,6 +16,9 @@ public class Place
 		return this.currentAmountOfTokens;
 	}
 	
+	public void setAmountOfToken(int curAmount){
+		currentAmountOfTokens = curAmount;
+	}
 	
 	public void consumeToken( )
 	{

@@ -1,3 +1,4 @@
+package mypackage;
 /**
  * @(#) Controller.java
  */

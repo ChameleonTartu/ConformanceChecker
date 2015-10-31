@@ -1,3 +1,4 @@
+package mypackage;
 /**
  * @(#) Transition.java
  */
@@ -19,6 +20,25 @@ public class Transition
 		this.inputPlaces = inputPlaces;
 		this.outputPlaces = outputPlaces;
 		this.name = name;
+	}
+	
+	public Transition(String name){
+		this.name = name;
+		this.inputPlaces = new ArrayList<Place>();
+		this.outputPlaces = new ArrayList<Place>();
+		
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void AddOutPlace(Place place) {
+		outputPlaces.add(place);
+	}
+	
+	public void AddInPlace(Place place) {
+		inputPlaces.add(place);
 	}
 	
 	public List<Place> getPlacesWithoutTokens()

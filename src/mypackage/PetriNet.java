@@ -1,3 +1,4 @@
+package mypackage;
 /**
  * @(#) PetriNet.java
  */
@@ -16,6 +17,45 @@ public class PetriNet
 		this.places = places;
 	}
 	
+	public PetriNet( List<Place> places)
+	{
+		this.transitions = new ArrayList<Transition>();
+		this.places = places;
+	}
+	
+	public void AddTransition(Transition trans) {
+		transitions.add(trans);
+	}
+	
+	public void AddArcFromTransition(String transName, String placeName) {
+		//list for finding initial node
+		List<Place> pls = new ArrayList<Place>(this.places);
+		for (Transition trans : transitions) {
+			if (trans.getName() == transName) {
+				for (Place place : this.places) {
+					if (placeName == place.name) {
+						trans.AddOutPlace(place);		
+						pls.remove(place);
+					}
+				}
+				
+			}
+		}
+		
+		pls.get(0).setAmountOfToken(1);
+	}
+	
+	public void AddArcToTransition(String transName, String placeName) {
+		for (Transition trans : transitions) {
+			if (trans.getName() == transName) {
+				for (Place place : places) {
+					if (placeName == place.name) {
+						trans.AddOutPlace(place);		
+					}
+				}
+			}
+		}
+	}
 	
 	public void replayTrace( List<Trace> traces )
 	{

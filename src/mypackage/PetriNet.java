@@ -64,16 +64,17 @@ public class PetriNet
 						traces.get(index).updateMissing(placeWithoutTokens);
 						if( placeWithoutTokens.size() > 0 )
 						{
-							List<Place> places = transitions.get(transition).getInputPlaces();
+							List<Place> inputPlaces = transitions.get(transition).getInputPlaces();
 							for( int indexPlacesWithoutTokens = 0; indexPlacesWithoutTokens < placeWithoutTokens.size(); ++indexPlacesWithoutTokens )
 							{
-								for( int indexInputPlaces = 0; indexInputPlaces < places.size(); ++indexInputPlaces )
+								for( int indexInputPlaces = 0; indexInputPlaces < inputPlaces.size(); ++indexInputPlaces )
 								{
-									if( placeWithoutTokens.get(indexPlacesWithoutTokens) == places.get(indexInputPlaces) )
+									if( placeWithoutTokens.get(indexPlacesWithoutTokens) == inputPlaces.get(indexInputPlaces) )
 										placeWithoutTokens.get(indexPlacesWithoutTokens).addToken();
 								}
 							}
 						}
+						
 						transitions.get(transition).fire();
 						
 						List<Place> inputPlaces = transitions.get(transition).getInputPlaces();
@@ -91,13 +92,12 @@ public class PetriNet
 			int remaining = 0;
 			for( int place = 0; place < places.size(); ++place)
 			{	
-				if( !( places.get(place).isFinalPlace() ) )
-					remaining += places.get(place).getAmountOfTokens();
-				else
-				{
+				remaining += places.get(place).getAmountOfTokens();
+				if(places.get(place).isFinalPlace()) {
 					traces.get(index).updateConsumed(1);
-					remaining += (places.get(place).getAmountOfTokens() - 1 );
+					remaining -= 1;
 				}
+
 				places.get(place).setAmountOfTokens(0);
 			}
 			traces.get(index).updateRemaining(remaining);

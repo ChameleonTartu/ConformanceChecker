@@ -64,21 +64,21 @@ public class Trace
 	}
 	
 	
-	public void updateEnabledTransitions( List<Transition> enabledTransitions )
+	public void updateEnabledTransitions( int enabledTransitionsSize )
 	{
-		this.enabled += enabledTransitions.size();
+		this.enabled += enabledTransitionsSize;
 	}
 	
 	
-	public void updateConsumed( List<Place> inputPlaces )
+	public void updateConsumed( int inputPlacesSize )
 	{
-		this.consumed += inputPlaces.size();
+		this.consumed += inputPlacesSize;
 	}
 	
 	
-	public void updateProduced( List<Place> outputPlaces )
+	public void updateProduced( int outputPlacesSize )
 	{
-		this.produced += outputPlaces.size();
+		this.produced += outputPlacesSize;
 	}
 	
 	

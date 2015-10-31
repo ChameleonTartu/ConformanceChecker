@@ -95,13 +95,17 @@ public class EntityManager
 			{
 				Place aPlace = Iterators.get( places.iterator(), place);
 				Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesInputPlaces = net.getInEdges(aPlace);
+				Collection<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edgesOutputPlaces = net.getOutEdges(aPlace);
 				if( edgesInputPlaces.size() == 0 )
 				{
-					originalPlaces.add(new mypackage.Place(aPlace.getLabel(),1));
+					originalPlaces.add(new mypackage.Place(aPlace.getLabel(),true,false));
 				}
 				else
 				{
-					originalPlaces.add(new mypackage.Place(aPlace.getLabel(),0));
+					if( edgesOutputPlaces.size() == 0 )
+						originalPlaces.add(new mypackage.Place(aPlace.getLabel(), false, true));
+					else
+						originalPlaces.add(new mypackage.Place(aPlace.getLabel(), false, false));
 				}
 			}
 			
@@ -157,11 +161,6 @@ public class EntityManager
 				}
 				originalTransitions.add( new mypackage.Transition( inputPlaces, outputPlaces, aTransition.getLabel() ));
 				
-			}
-			
-			for( int i = 0; i < originalTransitions.size(); ++i )
-			{
-				System.out.println(originalTransitions.get(i).getName());
 			}
 			
 			PetriNet petriNet = new PetriNet(originalPlaces, originalTransitions);

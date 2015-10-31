@@ -2,19 +2,16 @@ package mypackage;
 public class Place
 {	
 	private int currentAmountOfTokens;
+	private String name;
+	private boolean initialPlace;
+	private boolean finalPlace;
 	
-	public String name;
-	
-	public Place(String name, int currentAmountOfTokens)
-	{
-		this.currentAmountOfTokens = currentAmountOfTokens;
-		this.name = name;
-	}
-	
-	public Place(String name)
+	public Place(String name,  boolean initialPlace, boolean finalPlace )
 	{
 		this.currentAmountOfTokens = 0;
 		this.name = name;
+		this.initialPlace = initialPlace;
+		this.finalPlace = finalPlace;
 	}
 	
 	public String getName()
@@ -22,13 +19,28 @@ public class Place
 		return this.name;
 	}
 	
+	public boolean isInitialPlace()
+	{
+		return this.initialPlace;
+	}
+	
+	public boolean isFinalPlace()
+	{
+		return this.finalPlace;
+	}
+	
 	public int getAmountOfTokens( )
 	{
 		return this.currentAmountOfTokens;
 	}
 	
-	public void setAmountOfToken(int curAmount){
-		currentAmountOfTokens = curAmount;
+	public void setAmountOfTokens( int currentAmountOfTokens )
+	{
+		this.currentAmountOfTokens = currentAmountOfTokens;
+	}
+	
+	public void setAmountOfToken(int currentAmountOfTokens){
+		this.currentAmountOfTokens = currentAmountOfTokens;
 	}
 	
 	public void consumeToken( )

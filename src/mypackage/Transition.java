@@ -74,7 +74,6 @@ public class Transition
 			inputPlaces.get(i).consumeToken();
 		for( int i = 0; i < outputPlaces.size(); ++i )
 			outputPlaces.get(i).produceToken();
-		System.out.println("Fire!");
 	}
 
 }

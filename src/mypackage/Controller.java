@@ -34,16 +34,12 @@ public class Controller
 		double missing = 0, consumed = 0, remaining = 0, produced = 0;
 		for( int i = 0; i < traces.size(); ++i)
 		{
+			//System.out.println( traces.get(i).getNumber() + " " + traces.get(i).getMissing() + " " + traces.get(i).getConsumed() + " " + traces.get(i).getRemaining() + " " + traces.get(i).getProduced() );
 			missing += ( traces.get(i).getNumber() * traces.get(i).getMissing() );
 			consumed += ( traces.get(i).getNumber() * traces.get(i).getConsumed() );
 			remaining += ( traces.get(i).getNumber() * traces.get(i).getRemaining() );
 			produced += ( traces.get(i).getNumber() * traces.get(i).getProduced() );
 		}
-		System.out.println(missing);
-		System.out.println(consumed);
-		System.out.println(remaining);
-		System.out.println(produced);
-		System.out.println();
 		
 		return (1.0 - (missing/consumed + remaining/produced)/2.0);
 	}
@@ -59,8 +55,8 @@ public class Controller
 		List<Transition> transitions = petriNet.getTransitions();
 		double sumNumberMultyiplyByDisabledTransitions = 0, number = 0, numberTransitions = transitions.size();
 		for( int i = 0; i < traces.size(); ++i)
-		{
-			sumNumberMultyiplyByDisabledTransitions += (traces.get(i).getNumber() * (numberTransitions - traces.get(i).getEnabled() ) );
+		{	
+			sumNumberMultyiplyByDisabledTransitions += (traces.get(i).getNumber() * (numberTransitions - traces.get(i).getEnabled()/(double)(traces.get(i).getEvents().size()) ));
 			number += traces.get(i).getNumber();
 		}
 		return sumNumberMultyiplyByDisabledTransitions/((numberTransitions-1) * number) ;

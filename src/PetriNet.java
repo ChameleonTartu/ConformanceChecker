@@ -51,7 +51,7 @@ public class PetriNet
 								}
 							}
 						}
-						traces.get(index).updateEnabledTransitions(enabledTransition.size());
+						traces.get(index).updateEnabledTransitions(enabledTransition);
 						transitions.get(transition).fire();
 						
 						List<Place> inputPlaces = transitions.get(transition).getInputPlaces();

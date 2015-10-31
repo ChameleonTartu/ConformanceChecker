@@ -16,8 +16,6 @@ public class Trace
 	
 	private List<Event> events;
 	
-	private Log log;
-	
 	public Trace(int number, List<Event> events){
 		this.number = number;
 		remaining = 0;
@@ -55,38 +53,37 @@ public class Trace
 
 	public List<Event> getEvents( )
 	{
-		return null;
+		return events;
 	}
 	
 	
 	public void updateMissing( List<Place> placeWithoutTokens )
 	{
-		
+		this.missing += placeWithoutTokens.size();
 	}
 	
 	
-	public void updateEnabledTransitions( int enabledTransitionsLength )
+	public void updateEnabledTransitions( List<Transition> enabledTransitions )
 	{
-		// Not sure about this!
-		enabled += enabledTransitionsLength;
+		this.enabled += enabledTransitions.size();
 	}
 	
 	
 	public void updateConsumed( List<Place> inputPlaces )
 	{
-		
+		this.consumed = inputPlaces.size();
 	}
 	
 	
 	public void updateProduced( List<Place> outputPlaces )
 	{
-		
+		this.produced = outputPlaces.size();
 	}
 	
 	
 	public void updateRemaining( int remaining )
 	{
-		
+		this.remaining += remaining;
 	}
 	
 	

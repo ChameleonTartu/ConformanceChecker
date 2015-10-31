@@ -164,12 +164,7 @@ public class EntityManager
 				System.out.println(originalTransitions.get(i).getName());
 			}
 			
-			//System.out.println(originalPlaces.size());
-			//System.out.println(originalTransitions.size());
-			
 			PetriNet petriNet = new PetriNet(originalPlaces, originalTransitions);
-			//petriNet.findInitPlace();
-			//System.out.println(" aSDxa " + petriNet.getTransitions().size());
 			return petriNet;
 
 			} catch (Exception e) {

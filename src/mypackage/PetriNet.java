@@ -18,12 +18,7 @@ public class PetriNet
 		this.transitions = transitions;
 		this.places = places;
 	}
-	
-	public PetriNet( List<Place> places)
-	{
-		this.transitions = new ArrayList<Transition>();
-		this.places = places;
-	}
+
 	
 	public void replayTrace( List<Trace> traces )
 	{

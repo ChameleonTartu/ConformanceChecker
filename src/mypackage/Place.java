@@ -14,7 +14,7 @@ public class Place
 		this.finalPlace = finalPlace;
 	}
 	
-	public String getName()
+	public String getPlaceName()
 	{
 		return this.name;
 	}
@@ -36,10 +36,6 @@ public class Place
 	
 	public void setAmountOfTokens( int currentAmountOfTokens )
 	{
-		this.currentAmountOfTokens = currentAmountOfTokens;
-	}
-	
-	public void setAmountOfToken(int currentAmountOfTokens){
 		this.currentAmountOfTokens = currentAmountOfTokens;
 	}
 	

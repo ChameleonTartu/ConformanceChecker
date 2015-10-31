@@ -136,7 +136,7 @@ public class EntityManager
 								{
 									mypackage.Place originalPlace = Iterators.get( originalPlaces.iterator(), existPlace);
 									
-									if( aPlace.getLabel().equals( originalPlace.getName() ) )
+									if( aPlace.getLabel().equals( originalPlace.getPlaceName() ) )
 										outputPlaces.add(originalPlace);
 								}
 							}
@@ -153,7 +153,7 @@ public class EntityManager
 								{
 									mypackage.Place originalPlace = Iterators.get( originalPlaces.iterator(), existPlace);
 									
-									if( aPlace.getLabel().equals( originalPlace.getName() ) )
+									if( aPlace.getLabel().equals( originalPlace.getPlaceName() ) )
 										inputPlaces.add(originalPlace);
 								}
 							}

@@ -22,18 +22,6 @@ public class Transition
 		this.name = name;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
-	public void AddOutPlace(Place place) {
-		outputPlaces.add(place);
-	}
-	
-	public void AddInPlace(Place place) {
-		inputPlaces.add(place);
-	}
-	
 	public List<Place> getPlacesWithoutTokens()
 	{
 		List<Place> placesWithoutTokens = new ArrayList<Place>();
